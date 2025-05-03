@@ -60,7 +60,7 @@ export function SiteHeader() {
 
         <div className="ml-4 flex items-center gap-2">
           {user ? (
-            <Button variant="outline" size="sm" onClick={handleLogout}>
+            <Button variant="outline" size="sm" onClick={handleLogout} className="hover:bg-red-400">
               Log Out
             </Button>
           ) : (
