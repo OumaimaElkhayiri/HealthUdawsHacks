@@ -27,11 +27,6 @@ export function SiteHeader() {
               Sign In
             </Button>
           </Link>
-          <Link href="/auth?tab=register">
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-              Register
-            </Button>
-          </Link>
         </div>
       </div>
     </header>

@@ -1,27 +1,39 @@
-"use client"; // This ensures the code below is only run on the client side
+"use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Use "next/navigation" instead of "next/router"
+import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase.js";
+import { auth, db } from "@/firebase.js";
+import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Heart } from "lucide-react";
 
 export default function AuthPage() {
-  const router = useRouter(); // For navigation
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/patient-portal"); // Redirect after successful login
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Check if health data exists in Firestore
+      const docRef = doc(db, "patients", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        // Health data exists, redirect to /ai
+        router.push("/ai");
+      } else {
+        // No health data, redirect to /patient-portal
+        router.push("/patient-portal");
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -30,7 +42,7 @@ export default function AuthPage() {
   const handleRegister = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push("/patient-portal"); // Redirect after successful registration
+      router.push("/patient-portal"); // Always redirect to /patient-portal after registration
     } catch (error) {
       console.error("Registration failed:", error);
     }
