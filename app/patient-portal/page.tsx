@@ -114,10 +114,12 @@ export default function PatientPortalPage() {
   };
 
   return (
+    <div className="w-full px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-100 via-red-100 to-yellow-100">
+
     <div className="container py-10">
-      <div className="mb-10 space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight">Patient Portal</h1>
-        <p className="text-gray-500">Securely manage your health information in one place.</p>
+      <div className="mb-10 space-y-4 ">
+        <h1 className="text-3xl font-bold tracking-tight p-4 text-rose-600">Patient Portal</h1>
+        <p className="text-black p-4">Securely manage your health information in one place.</p>
       </div>
 
       <Card>
@@ -306,7 +308,7 @@ export default function PatientPortalPage() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+            <Button type="submit" className="w-full bg-red-300 hover:bg-red-400">
               {submitted ? (
                 <>
                   <CheckCircle className="mr-2 h-4 w-4" /> Information Saved
@@ -318,6 +320,7 @@ export default function PatientPortalPage() {
           </CardFooter>
         </form>
       </Card>
+    </div>
     </div>
   );
 }
