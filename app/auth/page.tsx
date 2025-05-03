@@ -6,13 +6,21 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "fire
 import { auth, db } from "@/firebase.js";
 import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart } from "lucide-react";
 
 export default function AuthPage() {
+  const router = useRouter();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [email, setEmail] = useState("");
@@ -37,6 +45,7 @@ export default function AuthPage() {
     } catch (error) {
       console.error("Login failed:", error);
     }
+
   };
 
   const handleRegister = async () => {
@@ -45,6 +54,15 @@ export default function AuthPage() {
       router.push("/patient-portal"); // Always redirect to /patient-portal after registration
     } catch (error) {
       console.error("Registration failed:", error);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      router.push("/patient-portal");
+    } catch (error) {
+      console.error("Google sign-in failed:", error);
     }
   };
 
@@ -98,9 +116,12 @@ export default function AuthPage() {
                   />
                 </div>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="flex flex-col gap-2">
                 <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={handleLogin}>
                   Sign In
+                </Button>
+                <Button className="w-full bg-red-500 hover:bg-red-600" onClick={handleGoogleLogin}>
+                  Sign in with Google
                 </Button>
               </CardFooter>
             </Card>
