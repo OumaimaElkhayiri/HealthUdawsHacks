@@ -22,7 +22,7 @@ export function SiteHeader() {
 
   const handleLogout = async () => {
     await signOut(auth);
-    router.push("/"); // Redirect to homepage after logout
+    window.location.href = "/"; // Redirect to homepage after logout
   };
 
   return (
