@@ -1,20 +1,40 @@
-"use client"
+"use client"; // This ensures the code below is only run on the client side
 
-import { useState } from "react"
-import Link from "next/link"
-import { useSearchParams } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Heart } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation"; // Use "next/navigation" instead of "next/router"
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase.js";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Heart } from "lucide-react";
 
 export default function AuthPage() {
-  const searchParams = useSearchParams()
-  const defaultTab = searchParams.get("tab") === "register" ? "register" : "login"
-  const [activeTab, setActiveTab] = useState(defaultTab)
+  const router = useRouter(); // For navigation
+  const [activeTab, setActiveTab] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/patient-portal"); // Redirect after successful login
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
+
+  const handleRegister = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push("/patient-portal"); // Redirect after successful registration
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
 
   return (
     <div className="container flex items-center justify-center py-10 min-h-[calc(100vh-4rem)]">
@@ -34,6 +54,7 @@ export default function AuthPage() {
             <TabsTrigger value="login">Sign In</TabsTrigger>
             <TabsTrigger value="register">Register</TabsTrigger>
           </TabsList>
+
           <TabsContent value="login">
             <Card>
               <CardHeader>
@@ -43,29 +64,36 @@ export default function AuthPage() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="m@example.com" required />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="password">Password</Label>
-                    <Link href="#" className="text-xs text-blue-600 hover:underline">
-                      Forgot password?
-                    </Link>
                   </div>
-                  <Input id="password" type="password" required />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="remember" />
-                  <Label htmlFor="remember" className="text-sm">
-                    Remember me
-                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">Sign In</Button>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={handleLogin}>
+                  Sign In
+                </Button>
               </CardFooter>
             </Card>
           </TabsContent>
+
           <TabsContent value="register">
             <Card>
               <CardHeader>
@@ -73,49 +101,37 @@ export default function AuthPage() {
                 <CardDescription>Enter your information to create an account</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="first-name">First Name</Label>
-                    <Input id="first-name" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="last-name">Last Name</Label>
-                    <Input id="last-name" required />
-                  </div>
-                </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="m@example.com" required />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="confirm-password">Confirm Password</Label>
-                  <Input id="confirm-password" type="password" required />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="terms" required />
-                  <Label htmlFor="terms" className="text-sm">
-                    I agree to the{" "}
-                    <Link href="#" className="text-blue-600 hover:underline">
-                      Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link href="#" className="text-blue-600 hover:underline">
-                      Privacy Policy
-                    </Link>
-                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">Create Account</Button>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={handleRegister}>
+                  Create Account
+                </Button>
               </CardFooter>
             </Card>
           </TabsContent>
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
