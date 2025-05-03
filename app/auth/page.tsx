@@ -1,11 +1,19 @@
 "use client"; // This ensures the code below is only run on the client side
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Use "next/navigation" instead of "next/router"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase.js";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "@/firebase.js";
+
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,7 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Heart } from "lucide-react";
 
 export default function AuthPage() {
-  const router = useRouter(); // For navigation
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +29,7 @@ export default function AuthPage() {
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/patient-portal"); // Redirect after successful login
+      router.push("/patient-portal");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -30,9 +38,18 @@ export default function AuthPage() {
   const handleRegister = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push("/patient-portal"); // Redirect after successful registration
+      router.push("/patient-portal");
     } catch (error) {
       console.error("Registration failed:", error);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      router.push("/patient-portal");
+    } catch (error) {
+      console.error("Google sign-in failed:", error);
     }
   };
 
@@ -86,9 +103,12 @@ export default function AuthPage() {
                   />
                 </div>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="flex flex-col gap-2">
                 <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={handleLogin}>
                   Sign In
+                </Button>
+                <Button className="w-full bg-red-500 hover:bg-red-600" onClick={handleGoogleLogin}>
+                  Sign in with Google
                 </Button>
               </CardFooter>
             </Card>

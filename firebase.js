@@ -1,6 +1,6 @@
-// firebaseConfig.js
+// firebase.js
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBX5iThB33G42c7NiRveMf7x5D939alBGg",
@@ -14,4 +14,6 @@ const firebaseConfig = {
 // Prevent reinitialization during hot reload
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
+// Firebase Auth and Google Provider
 export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
