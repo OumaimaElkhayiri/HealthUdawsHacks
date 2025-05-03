@@ -6,12 +6,12 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-cyan-50 to-blue-50">
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-red-300 to-blue-50">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">
-              <div className="inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-800">
-                Trusted Healthcare Partner
+              <div className="inline-block rounded-lg bg-blue-50 px-3 py-1 text-sm text-black">
+                Confirmed Trusted Healthcare Partner
               </div>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                 Your Health, Our Priority
@@ -20,18 +20,6 @@ export default function Home() {
                 Comprehensive healthcare solutions with secure patient information management, medical transcription
                 services, and personalized care.
               </p>
-              <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Link href="/patient-portal">
-                  <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                    Patient Portal <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/auth">
-                  <Button size="lg" variant="outline">
-                    Create Account
-                  </Button>
-                </Link>
-              </div>
             </div>
             <div className="flex justify-center">
               <img
@@ -106,26 +94,21 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-600 text-white">
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-red-300 to-blue-50 text-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
                 Ready to take control of your health?
               </h2>
-              <p className="max-w-[600px] text-blue-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="max-w-[600px] text-bold-50 tracking-tighter md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-black">
                 Create an account today and access our comprehensive healthcare services.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Link href="/auth">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
+                <Button size="lg" className="bg-white text-stone-950 hover:bg-blue-50 font-bold">
                   Create Account
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-blue-700">
-                  Learn More
                 </Button>
               </Link>
             </div>
