@@ -5,13 +5,16 @@ import { Heart, TreesIcon as Lungs, Brain, Bone, Droplet, Pill } from "lucide-re
 
 export default function ConditionsPage() {
   return (
+    <div className="w-full px-4 sm:px-6 lg:px-8">
+
     <div className="container py-10">
       <div className="mb-10 space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight">Health Conditions</h1>
-        <p className="text-gray-500 max-w-3xl">
+        <h1 className="text-3xl font-bold tracking-tight pl-4 text-rose-600">Health Conditions</h1>
+        <p className="text-black max-w-3xl pl-4">
           Learn about common health conditions, symptoms, treatments, and preventive measures.
         </p>
       </div>
+
 
       <Tabs defaultValue="cardiovascular" className="w-full">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-6">
@@ -42,7 +45,7 @@ export default function ConditionsPage() {
         </TabsList>
 
         <TabsContent value="cardiovascular" className="mt-6">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 ">
             <Card>
               <CardHeader>
                 <CardTitle>Hypertension (High Blood Pressure)</CardTitle>
@@ -478,7 +481,7 @@ export default function ConditionsPage() {
         </TabsContent>
 
         <TabsContent value="mental" className="mt-6">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 ">
             <Card>
               <CardHeader>
                 <CardTitle>Depression</CardTitle>
@@ -563,17 +566,7 @@ export default function ConditionsPage() {
         </TabsContent>
       </Tabs>
 
-      <div className="mt-12 text-center">
-        <h2 className="text-2xl font-bold mb-4">Need More Information?</h2>
-        <p className="text-gray-500 max-w-2xl mx-auto mb-6">
-          Our healthcare professionals are available to answer your questions and provide personalized advice about
-          these and other health conditions.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Button className="bg-blue-600 hover:bg-blue-700">Schedule a Consultation</Button>
-          <Button variant="outline">Browse Health Resources</Button>
-        </div>
-      </div>
+    </div>
     </div>
   )
 }
