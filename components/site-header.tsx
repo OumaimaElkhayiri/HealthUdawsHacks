@@ -27,7 +27,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-blue-50">
-      <div className="container flex h-16 items-center">
+      <div className="container flex h-16 items-center p-4">
         <Link href="/" className="flex items-center gap-2">
           <Heart className="h-6 w-6 text-rose-600" />
           <span className="text-xl font-bold">HealthCare</span>
@@ -65,7 +65,7 @@ export function SiteHeader() {
             </Button>
           ) : (
             <Link href="/auth">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="hover:bg-red-400">
                 Sign In
               </Button>
             </Link>
