@@ -223,7 +223,7 @@ export default function AIPage() {
   }
 
   return (
-    <div className="container py-10">
+    <div className="container py-10 bg-gradient-to-r from-red-300 to-blue-50 mx-auto">
       <h1 className="text-3xl font-bold tracking-tight mb-6">AI Health Assistant</h1>
 
       <Card className="mb-6">
@@ -278,9 +278,9 @@ export default function AIPage() {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="Ask a question..."
-              className="flex-1"
+              className="flex-1 hover:bg-white"
             />
-            <Button type="submit" disabled={isApiLoading}>
+            <Button  className="hover:bg-yellow-100 bg-pink-200 text-red-400" type="submit" disabled={isApiLoading}>
               <Send className="w-4 h-4" />
             </Button>
           </form>
