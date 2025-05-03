@@ -64,7 +64,7 @@ export function SiteHeader() {
               Log Out
             </Button>
           ) : (
-            <Link href="/auth">
+            <Link href="/">
               <Button variant="outline" size="sm" className="hover:bg-red-400">
                 Sign In
               </Button>
