@@ -253,7 +253,7 @@ export default function AIPage() {
               >
                 <div
                   className={`max-w-[70%] rounded-lg p-3 ${
-                    message.role === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-800"
+                    message.role === "user" ? "bg-rose-200 text-black" : "bg-gray-100 text-gray-800"
                   }`}
                 >
                   <p>{message.content}</p>
