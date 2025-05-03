@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-6 md:flex-row md:gap-8 lg:gap-12">
           <div className="flex flex-col gap-3 md:max-w-[400px]">
             <Link href="/" className="flex items-center gap-2">
-              <Heart className="h-6 w-6 text-blue-600" />
+              <Heart className="h-6 w-6 text-rose-600" />
               <span className="text-xl font-bold">HealthCare</span>
             </Link>
             <p className="text-sm text-gray-500">
