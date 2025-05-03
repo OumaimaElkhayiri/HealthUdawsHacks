@@ -57,7 +57,7 @@ export default function AuthPage() {
     <div className="container flex items-center justify-center py-10 min-h-[calc(100vh-4rem)]">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center space-y-2 text-center mb-6">
-          <Heart className="h-10 w-10 text-blue-600" />
+          <Heart className="h-10 w-10 text-red-600" />
           <h1 className="text-2xl font-bold">Welcome to HealthCare</h1>
           <p className="text-gray-500">
             {activeTab === "login"
