@@ -133,10 +133,7 @@ export default function AIPage() {
       "allergy", "doctor", "hospital", "diagnosis", "treatment"
     ];
     const hasPhi = phiKeywords.some(keyword => input.toLowerCase().includes(keyword));
-    if (hasPhi) {
-      setInputWarning("Warning: Your input may contain personal health information. Please avoid sharing sensitive data.");
-      return false;
-    }
+
     setInputWarning(null);
     return true;
   };
