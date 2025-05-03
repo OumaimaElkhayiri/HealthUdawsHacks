@@ -175,14 +175,18 @@ export default function AIPage() {
         ? `The user has the following health recommendations based on their profile: ${recommendations.join(", ")}. `
         : "The user has no specific health recommendations at this time. ";
 
-      // Customized prompt
+      // Determine if this is the first message in the conversation
+      const isFirstMessage = chatMessages.length === 0;
+
+      // Customized prompt with conditional greeting
       const customPrompt = `
-        You are a friendly and encouraging health assistant designed to provide practical, actionable health advice.
+        You are a friendly pharmacy assistant who provides clear, simple, and practical health advice in a conversational tone, like chatting with a customer at a pharmacy counter.
         Do not process or store any personally identifiable information (PII) or protected health information (PHI).
-        Always respond in a positive, supportive tone and focus on empowering the user to make healthy choices.
+        Keep responses short, easy to understand, and focused on helpful tips or guidance.
+        ${isFirstMessage ? "Start your response with a friendly greeting like 'Hi there!' to welcome the user." : "Do not include greetings like 'Hi there' since the conversation is ongoing."}
         ${recommendationsContext}
         Respond to the following user input: ${userInput}.
-        At the end of your response, include this disclaimer: "This advice is for informational purposes only and is not a substitute for professional medical advice. Consult a healthcare provider for personalized guidance."
+        End your response with: "This is general advice. Please consult a doctor or pharmacist for personalized recommendations."
       `;
 
       const response = await callGeminiAPIWithRetry(customPrompt);
@@ -201,7 +205,7 @@ export default function AIPage() {
       console.error("Gemini API error:", errorMessage, error);
       setChatMessages((prev) => [...prev, {
         role: "ai",
-        content: "Sorry, I couldn't process your request. Please try again later.",
+        content: "Any Other questions for me?.",
         timestamp: new Date().toISOString()
       }]);
     } finally {

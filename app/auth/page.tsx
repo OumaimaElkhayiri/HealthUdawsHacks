@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "@/firebase.js";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, db, provider } from "@/firebase.js";
 import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +20,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart } from "lucide-react";
 
 export default function AuthPage() {
-  const router = useRouter();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [email, setEmail] = useState("");
